@@ -1,0 +1,18 @@
+version: "3.4"
+
+services:
+    postgres:
+        image: postgres:13-alpine
+        container_name: postgres
+        environment:
+            - POSTGRES_USER=midpoint
+            - POSTGRES_DB=midpoint
+            - POSTGRES_HOST_AUTH_METHOD=trust
+        ports:
+            - 5432:5432
+    midpoint:
+        image: midpoint
+        container_name: midpoint
+        ports:
+            - 8080:8080
+    

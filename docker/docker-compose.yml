@@ -11,7 +11,7 @@ services:
         ports:
             - 5432:5432
     midpoint:
-        image: midpoint
+        image: evolveum/midpoint:4.4-alpine
         container_name: midpoint
         ports:
             - 8080:8080

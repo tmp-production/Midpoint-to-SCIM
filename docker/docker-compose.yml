@@ -10,9 +10,23 @@ services:
             - POSTGRES_HOST_AUTH_METHOD=trust
         ports:
             - 5432:5432
+        networks:
+            - main_network
     midpoint:
         image: evolveum/midpoint:4.4-alpine
         container_name: midpoint
+        environment:
+            - MP_ENTRY_POINT=/opt/midpoint-dirs-docker-entrypoint
+            - REPO_DATABASE_TYPE=postgresql
+            - REPO_DATABASE=midpoint
+            - REPO_USER=midpoint
+            - REPO_HOST=postgres
         ports:
             - 8080:8080
-    
+        networks:
+            - main_network
+        volumes:
+            - ./midpoint/pio:/opt/midpoint-dirs-docker-entrypoint/:ro
+networks:
+    main_network:
+        driver: bridge

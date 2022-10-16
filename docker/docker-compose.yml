@@ -27,6 +27,15 @@ services:
             - main_network
         volumes:
             - ./midpoint/pio:/opt/midpoint-dirs-docker-entrypoint/:ro
+    scim:
+        image: scim
+        container_name: scim
+        ports: 
+            - 8081:8080 # server ports
+            - 9990:9990 # debug ports
+        networks:
+            - main_network
+
 networks:
     main_network:
         driver: bridge

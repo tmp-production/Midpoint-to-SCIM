@@ -8,3 +8,5 @@ stop-project:
 
 build-scim:
 	docker build -f ../scim/Dockerfile -t scim ../scim/ 
+start-scim:
+	docker run -p 8081:8080 -p 9990:9990 scim 

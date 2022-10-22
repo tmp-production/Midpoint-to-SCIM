@@ -35,7 +35,8 @@ services:
             - 9990:9990 # debug ports
         networks:
             - main_network
-
+        volumes:
+            - ./scim/schemas:/schemas
 networks:
     main_network:
         driver: bridge

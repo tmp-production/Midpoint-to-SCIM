@@ -8,8 +8,6 @@ RUN mkdir /tmp_schem/
 RUN cd /scim/personify-scim-server \
     && mvn clean install -Dgpg.skip 
 
-COPY ./disc_schemas_custom.json /tmp_schem/disc_schemas_custom.json
-
 WORKDIR /scim/personify-scim-server/
 
-ENTRYPOINT ["java","-jar", "-Dserver.port=8080", "./target/personify-scim-server-1.5.2.RELEASE.jar", "-Dscim.schema.location=/tmp_schem/disc_schemas_custom.json"]
+ENTRYPOINT ["java","-jar", "-Dserver.port=8080","./target/personify-scim-server-1.5.2.RELEASE.jar", "-Dscim.schema.location=/schemas/disc_schemas_custom.json"]

@@ -1,0 +1,31 @@
+[
+  {
+      "id": "urn:ietf:params:scim:schemas:core:2.0:CustomUser",
+      "schemas": [ "urn:ietf:params:scim:schemas:core:2.0:Schema" ],
+      "name": "User",
+      "description": "User Account",
+      "attributes": [ 
+        {"name": "name",
+        "type": "complex",
+        "multiValued": false,
+        "required": false} 
+      ]
+  },
+  {
+      "id": "urn:your:user:extension:schemaNew",
+      "schemas": [ "urn:ietf:params:scim:schemas:core:2.0:Schema" ],
+      "name": "Your Custom User Extension Name",
+      "description": "Your Custom User Extension Description",
+      "attributes": [ {
+        "name": "NNNAAAMMMEEE",
+        "type": "string",
+        "multiValued": false,
+        "required": true,
+        "caseExact": false,
+        "mutability": "readWrite",
+        "returned": "default",
+        "uniqueness": "server",
+        "description": "Unique identifier for the User, typically used by the user to directly authenticate to the service provider. Each User MUST include a non-empty userName value. This identifier MUST be unique across the service provider's entire set of Users."
+      } ]
+  }
+]

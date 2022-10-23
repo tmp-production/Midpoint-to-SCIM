@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Scim2Connector.iml" filepath="$PROJECT_DIR$/.idea/Scim2Connector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scim-2-connector/scim-2-connector.iml" filepath="$PROJECT_DIR$/scim-2-connector/scim-2-connector.iml" />
+    </modules>
+  </component>
+</project>

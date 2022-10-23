@@ -1,0 +1,1 @@
+copy "..\Scim2Connector\scim-2-connector\target\scim-2-connector-1.0-SNAPSHOT.jar" ".\midpoint\pio\icf-connectors"

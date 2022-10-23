@@ -17,13 +17,19 @@
 package com.scimconnector.simple;
 
 import org.identityconnectors.common.logging.Log;
+import org.identityconnectors.framework.common.objects.AttributeInfoBuilder;
+import org.identityconnectors.framework.common.objects.ObjectClassInfoBuilder;
+import org.identityconnectors.framework.common.objects.Schema;
+import org.identityconnectors.framework.common.objects.SchemaBuilder;
 import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.Connector;
 import org.identityconnectors.framework.spi.ConnectorClass;
+import org.identityconnectors.framework.spi.operations.SchemaOp;
 import org.identityconnectors.framework.spi.operations.TestOp;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @ConnectorClass(displayNameKey = "scim2connector.connector.display", configurationClass = Scim2ConnectorConfiguration.class)
-public class Scim2ConnectorConnector implements Connector, TestOp {
+public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
 
     private static final Log LOG = Log.getLog(Scim2ConnectorConnector.class);
 
@@ -54,5 +60,28 @@ public class Scim2ConnectorConnector implements Connector, TestOp {
     public void test() {
         LOG.error("BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA");
         LOG.info("This is your sample property: " + configuration.getSampleProperty());
+    }
+
+    @Override
+    public Schema schema() {
+        WebClient client = WebClient.create("http://localhost:8080");
+        String response = client.get()
+                .uri("http://scim:8080/scim/v2/Schemas")
+                .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+        LOG.info(response + "THIS IS MY STRING INDICATING SOME BEBRA");
+
+        ObjectClassInfoBuilder objectClassBuilder = new ObjectClassInfoBuilder();
+        objectClassBuilder.setType("myAccount");
+        objectClassBuilder.addAttributeInfo(
+                AttributeInfoBuilder.build("fullName", String.class));
+        objectClassBuilder.addAttributeInfo(
+                AttributeInfoBuilder.build("homeDir", String.class));
+
+        SchemaBuilder schemaBuilder = new SchemaBuilder(Scim2ConnectorConnector.class);
+        schemaBuilder.defineObjectClass(objectClassBuilder.build());
+        return schemaBuilder.build();
     }
 }

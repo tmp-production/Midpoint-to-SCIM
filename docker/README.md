@@ -7,3 +7,5 @@ steps to start:
 
 stop containers:  
 1. make stop-project
+
+![cap](../pics/cap.jpg)

@@ -5,5 +5,5 @@ steps to start:
 3. `make build-scim`
 4. `make start-project`
 
-stop containers:
-5. make stop-project
+stop containers:  
+1. make stop-project

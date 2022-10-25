@@ -16,17 +16,20 @@
 
 package com.scimconnector.simple;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.identityconnectors.common.logging.Log;
-import org.identityconnectors.framework.common.objects.AttributeInfoBuilder;
-import org.identityconnectors.framework.common.objects.ObjectClassInfoBuilder;
-import org.identityconnectors.framework.common.objects.Schema;
-import org.identityconnectors.framework.common.objects.SchemaBuilder;
+import org.identityconnectors.framework.common.objects.*;
 import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.Connector;
 import org.identityconnectors.framework.spi.ConnectorClass;
 import org.identityconnectors.framework.spi.operations.SchemaOp;
 import org.identityconnectors.framework.spi.operations.TestOp;
-import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.Iterator;
+
+// com.scimconnector.simple.Scim2ConnectorConnector
 
 @ConnectorClass(displayNameKey = "scim2connector.connector.display", configurationClass = Scim2ConnectorConfiguration.class)
 public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
@@ -37,7 +40,7 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
     private Scim2ConnectorConnection connection;
 
     @Override
-    public Configuration getConfiguration() {
+    public Scim2ConnectorConfiguration getConfiguration() {
         return configuration;
     }
 
@@ -45,6 +48,10 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
     public void init(Configuration configuration) {
         this.configuration = (Scim2ConnectorConfiguration)configuration;
         this.connection = new Scim2ConnectorConnection(this.configuration);
+
+        ScimRequests.init(this.configuration.getHostname());
+
+        LOG.ok("Connector initialized");
     }
 
     @Override
@@ -59,29 +66,68 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
     @Override
     public void test() {
         LOG.error("BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA");
-        LOG.info("This is your sample property: " + configuration.getSampleProperty());
+        LOG.ok("This is your hostname property: " + configuration.getHostname());
     }
 
     @Override
     public Schema schema() {
-        WebClient client = WebClient.create("http://localhost:8080");
-        String response = client.get()
-                .uri("http://scim:8080/scim/v2/Schemas")
-                .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-        LOG.info(response + "THIS IS MY STRING INDICATING SOME BEBRA");
+        String response = ScimRequests.getSchema();
 
+        // replace curly brackets because it's special symbol in this logger
+        LOG.ok(response.
+                replace("{", "<(").
+                replace("}", ")>") +
+                "\nGot schema from SCIM server");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            JsonNode root = objectMapper.readTree(response);
+            assert root.isObject(); // I assume that we got only one schema
+
+            ObjectClassInfo classInfo = buildObjectClassInfo(root);
+
+            SchemaBuilder schemaBuilder = new SchemaBuilder(Scim2ConnectorConnector.class);
+            schemaBuilder.defineObjectClass(classInfo);
+            return schemaBuilder.build();
+        } catch (JsonProcessingException e) {
+            LOG.ok("JSON parsing failed");
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObjectClassInfo buildObjectClassInfo(JsonNode root) {
         ObjectClassInfoBuilder objectClassBuilder = new ObjectClassInfoBuilder();
-        objectClassBuilder.setType("myAccount");
-        objectClassBuilder.addAttributeInfo(
-                AttributeInfoBuilder.build("fullName", String.class));
-        objectClassBuilder.addAttributeInfo(
-                AttributeInfoBuilder.build("homeDir", String.class));
 
-        SchemaBuilder schemaBuilder = new SchemaBuilder(Scim2ConnectorConnector.class);
-        schemaBuilder.defineObjectClass(objectClassBuilder.build());
-        return schemaBuilder.build();
+        // TODO generalize
+        JsonNode resourceInfo = root.get(0);
+
+        // get resource type
+        String name = resourceInfo.get("name").textValue();
+        objectClassBuilder.setType(name);
+
+        // add attributes
+        assert resourceInfo.get("attributes").isArray();
+
+        Iterator<JsonNode> it = resourceInfo.get("attributes").elements();
+        while (it.hasNext()) {
+            JsonNode attribute = it.next();
+            assert attribute.isObject();
+
+            /*TODO: now we add attribute into the class info only if it's "required"
+             * there is only one such attribute in our schema - "userName"
+             * so we need to add more
+             */
+            assert attribute.get("required").isBoolean();
+            if (attribute.get("required").asBoolean()) {
+                String attributeName = attribute.get("name").textValue();
+
+                objectClassBuilder.addAttributeInfo(
+                        AttributeInfoBuilder.build(attributeName, String.class)
+                );
+            }
+        }
+
+        return objectClassBuilder.build();
     }
 }

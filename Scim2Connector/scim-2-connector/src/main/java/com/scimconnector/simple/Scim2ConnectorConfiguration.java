@@ -24,20 +24,20 @@ public class Scim2ConnectorConfiguration extends AbstractConfiguration {
 
     private static final Log LOG = Log.getLog(Scim2ConnectorConfiguration.class);
 
-    private String sampleProperty;
+    private String hostname;
 
     @Override
     public void validate() {
         //todo implement
     }
 
-    @ConfigurationProperty(displayMessageKey = "scim2connector.config.sampleProperty",
+    @ConfigurationProperty(displayMessageKey = "hostname (e.g. http://scim:8080)",
             helpMessageKey = "scim2connector.config.sampleProperty.help")
-    public String getSampleProperty() {
-        return sampleProperty;
+    public String getHostname() {
+        return hostname;
     }
 
-    public void setSampleProperty(String sampleProperty) {
-        this.sampleProperty = sampleProperty;
+    public void setHostname(String host) {
+        this.hostname = host;
     }
 }

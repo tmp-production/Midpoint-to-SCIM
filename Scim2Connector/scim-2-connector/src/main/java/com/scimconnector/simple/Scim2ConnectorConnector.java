@@ -83,7 +83,6 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
 
         try {
             JsonNode root = objectMapper.readTree(response);
-            assert root.isObject(); // I assume that we got only one schema
 
             ObjectClassInfo classInfo = buildObjectClassInfo(root);
 

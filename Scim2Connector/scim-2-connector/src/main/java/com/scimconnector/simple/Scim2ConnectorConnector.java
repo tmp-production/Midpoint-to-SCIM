@@ -65,8 +65,12 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
 
     @Override
     public void test() {
-        LOG.error("BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA");
         LOG.ok("This is your hostname property: " + configuration.getHostname());
+        try {
+            schema();
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while receiving schema from scim", e);
+        }
     }
 
     @Override

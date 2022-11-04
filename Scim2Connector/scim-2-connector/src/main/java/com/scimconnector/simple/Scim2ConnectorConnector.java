@@ -24,15 +24,20 @@ import org.identityconnectors.framework.common.objects.*;
 import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.Connector;
 import org.identityconnectors.framework.spi.ConnectorClass;
+import org.identityconnectors.framework.spi.operations.CreateOp;
 import org.identityconnectors.framework.spi.operations.SchemaOp;
 import org.identityconnectors.framework.spi.operations.TestOp;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.UUID;
 
 // com.scimconnector.simple.Scim2ConnectorConnector
 
 @ConnectorClass(displayNameKey = "scim2connector.connector.display", configurationClass = Scim2ConnectorConfiguration.class)
-public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
+public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, CreateOp {
 
     private static final Log LOG = Log.getLog(Scim2ConnectorConnector.class);
 
@@ -65,8 +70,13 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
 
     @Override
     public void test() {
-        LOG.error("BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA BEBRA");
         LOG.ok("This is your hostname property: " + configuration.getHostname());
+        try {
+            String response = ScimRequests.getResponse();
+        } catch (WebClientResponseException e) {
+            throw new RuntimeException("Error occurred while receiving schema from scim", e);
+        }
+        LOG.ok("Test finished");
     }
 
     @Override
@@ -128,5 +138,34 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp {
         }
 
         return objectClassBuilder.build();
+    }
+
+    @Override
+    public Uid create(final ObjectClass objectClass, final Set<Attribute> createAttributes, final OperationOptions options) {
+        LOG.info("create::begin attributes {0}", createAttributes);
+        String name = (String) createAttributes.toArray(new Attribute[0])[0].getValue().get(0);
+        LOG.info("create::name: " + name);
+        String response = ScimRequests.postCreate(name);
+
+        LOG.ok(response.
+                replace("{", "<(").
+                replace("}", ")>") +
+                "\nGot response from create account on SCIM server");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String id;
+        try {
+            JsonNode root = objectMapper.readTree(response);
+            id = root.get("id").textValue();
+        } catch (JsonProcessingException e) {
+            LOG.ok("JSON parsing failed");
+            throw new RuntimeException(e);
+        }
+        LOG.info("create::response id: " + id);
+
+        Uid uid = new Uid(id);
+
+        LOG.info("create::end");
+        return uid;
     }
 }

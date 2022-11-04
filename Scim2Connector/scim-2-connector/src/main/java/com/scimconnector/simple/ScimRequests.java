@@ -19,4 +19,13 @@ public class ScimRequests {
                 .block();
     }
 
+    public static String getResponse() {
+        return webClient.get()
+                .uri("/")
+                .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
 }

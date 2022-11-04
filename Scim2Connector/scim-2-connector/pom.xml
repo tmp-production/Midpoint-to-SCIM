@@ -36,6 +36,9 @@
     <properties>
         <connectorPackage>com.scimconnector.simple</connectorPackage>
         <connectorClass>Scim2ConnectorConnector</connectorClass>
+        <sonar.organization>tmp-production</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.projectKey>tmp-production_Midpoint-to-SCIM</sonar.projectKey>
     </properties>
 
     <repositories>

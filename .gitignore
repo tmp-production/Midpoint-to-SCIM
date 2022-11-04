@@ -23,3 +23,5 @@
 hs_err_pid*
 
 */target/*
+Scim2Connector/scim-2-connector/.idea/
+Scim2Connector/scim-2-connector/target/

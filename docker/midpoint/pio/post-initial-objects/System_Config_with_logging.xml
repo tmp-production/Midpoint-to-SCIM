@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+	xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+	xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+	<systemConfiguration xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="00000000-0000-0000-0000-000000000001" version="3">
+    <name>SystemConfiguration</name>
+    <metadata>
+        <requestTimestamp>2022-11-05T05:04:17.466Z</requestTimestamp>
+        <createTimestamp>2022-11-05T05:04:17.757Z</createTimestamp>
+        <createChannel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#init</createChannel>
+        <modifyTimestamp>2022-11-05T05:07:24.555Z</modifyTimestamp>
+        <modifierRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType">
+            <!-- administrator -->
+        </modifierRef>
+        <modifyChannel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</modifyChannel>
+    </metadata>
+    <operationExecution id="119">
+        <recordType>simple</recordType>
+        <timestamp>2022-11-05T05:04:18.045Z</timestamp>
+        <operation>
+            <objectDelta>
+                <t:changeType>add</t:changeType>
+                <t:objectType>c:SystemConfigurationType</t:objectType>
+            </objectDelta>
+            <executionResult>
+                <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                <status>success</status>
+                <importance>normal</importance>
+                <token>1000000000000000005</token>
+            </executionResult>
+            <objectName>SystemConfiguration</objectName>
+        </operation>
+        <status>success</status>
+        <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#init</channel>
+    </operationExecution>
+    <operationExecution id="121">
+        <recordType>simple</recordType>
+        <timestamp>2022-11-05T05:07:24.714Z</timestamp>
+        <operation>
+            <objectDelta>
+                <t:changeType>modify</t:changeType>
+                <t:objectType>c:SystemConfigurationType</t:objectType>
+            </objectDelta>
+            <executionResult>
+                <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                <status>success</status>
+                <importance>normal</importance>
+                <token>1000000000000000760</token>
+            </executionResult>
+            <objectName>SystemConfiguration</objectName>
+        </operation>
+        <status>success</status>
+        <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType">
+            <!-- administrator -->
+        </initiatorRef>
+        <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channel>
+    </operationExecution>
+    <indestructible>true</indestructible>
+    <iteration>0</iteration>
+    <iterationToken/>
+    <globalSecurityPolicyRef xmlns:tns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="00000000-0000-0000-0000-000000000120" relation="org:default" type="tns:SecurityPolicyType">
+        <!-- Default Security Policy -->
+    </globalSecurityPolicyRef>
+    <logging>
+        <classLogger id="1">
+            <level>ERROR</level>
+            <package>ro.isdc.wro.extensions.processor.css.Less4jProcessor</package>
+        </classLogger>
+        <classLogger id="2">
+            <level>OFF</level>
+            <package>org.springframework.security.web.DefaultSecurityFilterChain</package>
+        </classLogger>
+        <classLogger id="3">
+            <level>OFF</level>
+            <package>org.hibernate.engine.jdbc.spi.SqlExceptionHelper</package>
+        </classLogger>
+        <classLogger id="4">
+            <level>OFF</level>
+            <package>org.hibernate.engine.jdbc.batch.internal.BatchingBatch</package>
+        </classLogger>
+        <classLogger id="5">
+            <level>WARN</level>
+            <package>org.hibernate.engine.jdbc.batch.internal.AbstractBatchImpl</package>
+        </classLogger>
+        <classLogger id="6">
+            <level>OFF</level>
+            <package>org.hibernate.internal.ExceptionMapperStandardImpl</package>
+        </classLogger>
+        <classLogger id="7">
+            <level>WARN</level>
+            <package>org.apache.wicket.resource.PropertiesFactory</package>
+        </classLogger>
+        <classLogger id="8">
+            <level>ERROR</level>
+            <package>org.springframework.context.support.ResourceBundleMessageSource</package>
+        </classLogger>
+        <classLogger id="9">
+            <level>INFO</level>
+            <package>com.evolveum.midpoint.model.impl.lens.projector.Projector</package>
+        </classLogger>
+        <classLogger id="10">
+            <level>INFO</level>
+            <package>com.evolveum.midpoint.model.impl.lens.Clockwork</package>
+        </classLogger>
+        <classLogger id="120">
+            <level>ALL</level>
+            <package>com.scimconnector.simple.Scim2ConnectorConnector</package>
+        </classLogger>
+        <appender id="11" xsi:type="c:FileAppenderConfigurationType">
+            <pattern>%date [%X{subsystem}] [%thread] %level \(%logger\): %msg%n</pattern>
+            <name>MIDPOINT_LOG</name>
+            <fileName>${midpoint.home}/log/midpoint.log</fileName>
+            <filePattern>${midpoint.home}/log/midpoint-%d{yyyy-MM-dd}.%i.log</filePattern>
+            <maxHistory>10</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+            <append>true</append>
+        </appender>
+        <appender id="12" xsi:type="c:FileAppenderConfigurationType">
+            <pattern>%date %level: %msg%n</pattern>
+            <name>MIDPOINT_PROFILE_LOG</name>
+            <fileName>${midpoint.home}/log/midpoint-profile.log</fileName>
+            <filePattern>${midpoint.home}/log/midpoint-profile-%d{yyyy-MM-dd}.%i.log</filePattern>
+            <maxHistory>10</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+            <append>true</append>
+        </appender>
+        <rootLoggerAppender>MIDPOINT_LOG</rootLoggerAppender>
+        <rootLoggerLevel>INFO</rootLoggerLevel>
+        <auditing>
+            <enabled>false</enabled>
+            <details>false</details>
+        </auditing>
+    </logging>
+    <cleanupPolicy>
+        <auditRecords>
+            <maxAge>P3M</maxAge>
+        </auditRecords>
+        <closedTasks>
+            <maxAge>P1M</maxAge>
+        </closedTasks>
+    </cleanupPolicy>
+    <internals>
+        <tracing>
+            <profile id="13">
+                <name>performance</name>
+                <displayName>Performance tracing</displayName>
+                <visible>true</visible>
+                <default>true</default>
+                <fileNamePattern>performance-trace %{timestamp} %{focusName} %{milliseconds}</fileNamePattern>
+                <createRepoObject>true</createRepoObject>
+                <compressOutput>true</compressOutput>
+            </profile>
+            <profile id="14">
+                <name>functional</name>
+                <displayName>Functional tracing</displayName>
+                <visible>true</visible>
+                <fileNamePattern>functional-trace %{timestamp} %{focusName}</fileNamePattern>
+                <createRepoObject>true</createRepoObject>
+                <compressOutput>true</compressOutput>
+                <collectLogEntries>true</collectLogEntries>
+                <tracingTypeProfile id="17">
+                    <level>normal</level>
+                </tracingTypeProfile>
+            </profile>
+            <profile id="15">
+                <name>functional-model-logging</name>
+                <displayName>Functional tracing (with model logging)</displayName>
+                <visible>true</visible>
+                <fileNamePattern>functional-trace %{timestamp} %{focusName}</fileNamePattern>
+                <createRepoObject>true</createRepoObject>
+                <compressOutput>true</compressOutput>
+                <collectLogEntries>true</collectLogEntries>
+                <loggingOverride>
+                    <levelOverride id="18">
+                        <logger>com.evolveum.midpoint.model</logger>
+                        <level>TRACE</level>
+                    </levelOverride>
+                </loggingOverride>
+                <tracingTypeProfile id="19">
+                    <level>normal</level>
+                </tracingTypeProfile>
+            </profile>
+            <profile id="16">
+                <name>functional-sql-logging</name>
+                <displayName>Functional tracing (with SQL logging)</displayName>
+                <visible>true</visible>
+                <fileNamePattern>functional-trace %{timestamp} %{focusName}</fileNamePattern>
+                <createRepoObject>true</createRepoObject>
+                <compressOutput>true</compressOutput>
+                <collectLogEntries>true</collectLogEntries>
+                <loggingOverride>
+                    <levelOverride id="20">
+                        <logger>org.hibernate.SQL</logger>
+                        <level>TRACE</level>
+                    </levelOverride>
+                </loggingOverride>
+                <tracingTypeProfile id="21">
+                    <level>normal</level>
+                </tracingTypeProfile>
+            </profile>
+        </tracing>
+    </internals>
+    <adminGuiConfiguration>
+        <userDashboardLink id="22">
+            <targetUrl>/self/profile</targetUrl>
+            <label>PageSelfDashboard.profile</label>
+            <description>PageSelfDashboard.profile.description</description>
+            <icon>
+                <cssClass>fa fa-user</cssClass>
+            </icon>
+            <color>green</color>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfProfile</authorization>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfAll</authorization>
+        </userDashboardLink>
+        <userDashboardLink id="23">
+            <targetUrl>/self/credentials</targetUrl>
+            <label>PageSelfDashboard.credentials</label>
+            <description>PageSelfDashboard.credentials.description</description>
+            <icon>
+                <cssClass>fa fa-shield</cssClass>
+            </icon>
+            <color>blue</color>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfCredentials</authorization>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfAll</authorization>
+        </userDashboardLink>
+        <userDashboardLink id="24">
+            <targetUrl>/admin/users</targetUrl>
+            <label>PageSelfDashboard.listUsers</label>
+            <icon>
+                <cssClass>fa fa-users</cssClass>
+            </icon>
+            <color>red</color>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#users</authorization>
+        </userDashboardLink>
+        <userDashboardLink id="25">
+            <targetUrl>/admin/resources</targetUrl>
+            <label>PageSelfDashboard.listResources</label>
+            <icon>
+                <cssClass>fa fa-database</cssClass>
+            </icon>
+            <color>purple</color>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#resources</authorization>
+        </userDashboardLink>
+        <objectCollectionViews>
+            <objectCollectionView id="26">
+                <identifier>my-cases</identifier>
+                <display>
+                    <label>My cases</label>
+                    <singularLabel>My case</singularLabel>
+                    <pluralLabel>
+                        <t:orig>My cases</t:orig>
+                        <t:norm>my cases</t:norm>
+                        <t:translation>
+                            <t:key>MyCases.title</t:key>
+                        </t:translation>
+                    </pluralLabel>
+                    <icon>
+                        <cssClass>fe fe-case-object</cssClass>
+                    </icon>
+                </display>
+                <displayOrder>1000</displayOrder>
+                <type>CaseType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000344" relation="org:default" type="c:ObjectCollectionType">
+                        <!-- My cases -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="27">
+                <identifier>manual-case-view</identifier>
+                <display>
+                    <label>Manual cases</label>
+                    <singularLabel>Manual case</singularLabel>
+                    <pluralLabel>
+                        <t:orig>All manual cases</t:orig>
+                        <t:norm>all manual cases</t:norm>
+                        <t:translation>
+                            <t:key>AllManualCases.title</t:key>
+                        </t:translation>
+                    </pluralLabel>
+                    <tooltip>Manual provisioning cases</tooltip>
+                </display>
+                <displayOrder>1010</displayOrder>
+                <type>CaseType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000340" relation="org:default" type="c:ArchetypeType">
+                        <!-- Manual provisioning case -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="28">
+                <identifier>operation-request-case-view</identifier>
+                <display>
+                    <label>Requests</label>
+                    <singularLabel>Request</singularLabel>
+                    <pluralLabel>
+                        <t:orig>All requests</t:orig>
+                        <t:norm>all requests</t:norm>
+                        <t:translation>
+                            <t:key>AllRequests.title</t:key>
+                        </t:translation>
+                    </pluralLabel>
+                    <tooltip>Operation requests</tooltip>
+                </display>
+                <displayOrder>1020</displayOrder>
+                <type>CaseType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000341" relation="org:default" type="c:ArchetypeType">
+                        <!-- Operation request -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="29">
+                <identifier>approval-case-view</identifier>
+                <display>
+                    <label>Approvals</label>
+                    <singularLabel>Approval</singularLabel>
+                    <pluralLabel>
+                        <t:orig>All approvals</t:orig>
+                        <t:norm>all approvals</t:norm>
+                        <t:translation>
+                            <t:key>AllApprovals.title</t:key>
+                        </t:translation>
+                    </pluralLabel>
+                    <tooltip>Approval cases</tooltip>
+                </display>
+                <displayOrder>1030</displayOrder>
+                <type>CaseType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000342" relation="org:default" type="c:ArchetypeType">
+                        <!-- Approval case -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="30">
+                <identifier>reconciliation-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000501" relation="org:default" type="c:ArchetypeType">
+                        <!-- Reconciliation task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="31">
+                <identifier>recomputation-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000502" relation="org:default" type="c:ArchetypeType">
+                        <!-- Recomputation task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="32">
+                <identifier>import-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000503" relation="org:default" type="c:ArchetypeType">
+                        <!-- Import task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="33">
+                <identifier>live-sync-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000504" relation="org:default" type="c:ArchetypeType">
+                        <!-- Live synchronization task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="34">
+                <identifier>async-update-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000505" relation="org:default" type="c:ArchetypeType">
+                        <!-- Asynchronous update task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="35">
+                <identifier>cleanup-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000506" relation="org:default" type="c:ArchetypeType">
+                        <!-- Cleanup task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="36">
+                <identifier>report-tasks-view</identifier>
+                <display>
+                    <label>Report task</label>
+                    <pluralLabel>
+                        <t:orig>Report tasks</t:orig>
+                        <t:norm>report tasks</t:norm>
+                        <t:translation>
+                            <t:key>ReportTasks.title</t:key>
+                        </t:translation>
+                    </pluralLabel>
+                    <icon>
+                        <cssClass>fa fa-pie-chart</cssClass>
+                        <color>green</color>
+                    </icon>
+                </display>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0002-000000000007" relation="org:default" type="c:ObjectCollectionType">
+                        <!-- Report tasks -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="37">
+                <identifier>non-iterative-bulk-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000508" relation="org:default" type="c:ArchetypeType">
+                        <!-- Single bulk action task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="38">
+                <identifier>iterative-bulk-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000509" relation="org:default" type="c:ArchetypeType">
+                        <!-- Iterative bulk action task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="39">
+                <identifier>report-import-task-view</identifier>
+                <applicableForOperation>add</applicableForOperation>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000510" relation="org:default" type="c:ArchetypeType">
+                        <!-- Report import task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="40">
+                <identifier>export-report-tasks-view</identifier>
+                <applicableForOperation>add</applicableForOperation>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000511" relation="org:default" type="c:ArchetypeType">
+                        <!-- Report export task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="41">
+                <identifier>export-report-distributed-tasks-view</identifier>
+                <applicableForOperation>add</applicableForOperation>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000512" relation="org:default" type="c:ArchetypeType">
+                        <!-- Distributed report export task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="42">
+                <identifier>certification-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000520" relation="org:default" type="c:ArchetypeType">
+                        <!-- Certification-related task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="43">
+                <identifier>approval-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000521" relation="org:default" type="c:ArchetypeType">
+                        <!-- Approval-related task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="44">
+                <identifier>utility-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000528" relation="org:default" type="c:ArchetypeType">
+                        <!-- Utility task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="45">
+                <identifier>system-tasks-view</identifier>
+                <refreshInterval>30</refreshInterval>
+                <type>TaskType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000529" relation="org:default" type="c:ArchetypeType">
+                        <!-- System task -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="46">
+                <identifier>dashboard-reports-view</identifier>
+                <type>ReportType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000170" relation="org:default" type="c:ArchetypeType">
+                        <!-- Dashboard report -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+            <objectCollectionView id="47">
+                <identifier>collection-reports-view</identifier>
+                <type>ReportType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000171" relation="org:default" type="c:ArchetypeType">
+                        <!-- Collection report -->
+                    </collectionRef>
+                </collection>
+            </objectCollectionView>
+        </objectCollectionViews>
+        <objectDetails>
+            <objectDetailsPage id="48">
+                <type>c:TaskType</type>
+                <panel id="49">
+                    <identifier>advanced-options-panel</identifier>
+                    <display>
+                        <label>Advanced options</label>
+                    </display>
+                    <container id="51">
+                        <identifier>advanced-options</identifier>
+                        <display>
+                            <label>Advanced options</label>
+                        </display>
+                        <displayOrder>150</displayOrder>
+                        <item id="52">
+                            <path>cleanupAfterCompletion</path>
+                        </item>
+                        <item id="53">
+                            <path>threadStopAction</path>
+                        </item>
+                        <item id="54">
+                            <path>binding</path>
+                        </item>
+                        <item id="55">
+                            <path>dependent</path>
+                        </item>
+                    </container>
+                    <panelType>formPanel</panelType>
+                </panel>
+                <panel id="50">
+                    <identifier>operational-attributes-panel</identifier>
+                    <display>
+                        <label>Operational attributes</label>
+                    </display>
+                    <container id="56">
+                        <identifier>operational-attributes</identifier>
+                        <display>
+                            <label>Operational attributes (state)</label>
+                        </display>
+                        <displayOrder>900</displayOrder>
+                        <item id="58">
+                            <path>executionState</path>
+                        </item>
+                        <item id="59">
+                            <path>schedulingState</path>
+                        </item>
+                        <item id="60">
+                            <path>node</path>
+                        </item>
+                        <item id="61">
+                            <path>nodeAsObserved</path>
+                        </item>
+                        <item id="62">
+                            <path>resultStatus</path>
+                        </item>
+                        <item id="63">
+                            <path>result</path>
+                        </item>
+                        <item id="64">
+                            <path>nextRunStartTimestamp</path>
+                        </item>
+                        <item id="65">
+                            <path>nextRetryTimestamp</path>
+                        </item>
+                        <item id="66">
+                            <path>unpauseAction</path>
+                        </item>
+                        <item id="67">
+                            <path>taskIdentifier</path>
+                        </item>
+                        <item id="68">
+                            <path>parent</path>
+                        </item>
+                        <item id="69">
+                            <path>waitingReason</path>
+                        </item>
+                        <item id="70">
+                            <path>stateBeforeSuspend</path>
+                        </item>
+                        <item id="71">
+                            <path>schedulingStateBeforeSuspend</path>
+                        </item>
+                        <item id="72">
+                            <path>category</path>
+                        </item>
+                        <item id="73">
+                            <path>otherHandlersUriStack</path>
+                        </item>
+                        <item id="74">
+                            <path>channel</path>
+                        </item>
+                        <item id="75">
+                            <path>subtaskRef</path>
+                        </item>
+                        <item id="76">
+                            <path>dependentTaskRef</path>
+                        </item>
+                        <item id="77">
+                            <path>lastRunStartTimestamp</path>
+                        </item>
+                        <item id="78">
+                            <path>lastRunFinishTimestamp</path>
+                        </item>
+                        <item id="79">
+                            <path>completionTimestamp</path>
+                        </item>
+                    </container>
+                    <container id="57">
+                        <identifier>operation-attributes-progress</identifier>
+                        <display>
+                            <label>Operational attributes (progress)</label>
+                        </display>
+                        <visibility>hidden</visibility>
+                        <displayOrder>910</displayOrder>
+                        <item id="80">
+                            <path>progress</path>
+                        </item>
+                        <item id="81">
+                            <path>expectedTotal</path>
+                        </item>
+                        <item id="82">
+                            <path>stalledSince</path>
+                        </item>
+                    </container>
+                    <panelType>formPanel</panelType>
+                </panel>
+            </objectDetailsPage>
+        </objectDetails>
+        <configurableUserDashboard id="83">
+            <identifier>admin-dashboard</identifier>
+            <configurableDashboardRef oid="00000000-0000-0000-0001-000000000001" relation="org:default" type="c:DashboardType">
+                <!-- admin-dashboard -->
+            </configurableDashboardRef>
+        </configurableUserDashboard>
+    </adminGuiConfiguration>
+    <expressions>
+        <expressionProfile id="84">
+            <identifier>safe</identifier>
+            <description>
+                "Safe" expression profile. It is supposed to contain only operations that are "safe",
+                i.e. operations that have very little risk to harm the system, circumvent midPoint security
+                and so on. Use of those operations should be reasonably safe in all expressions.
+                However, there are limitations. This profile may incomplete or it may even be not completely secure.
+                Proper security testing of this profile was not yet conducted. It is provided here "AS IS",
+                without any guarantees. Use at your own risk.
+            </description>
+            <decision>deny</decision>
+            <evaluator id="85">
+                <type>asIs</type>
+                <decision>allow</decision>
+            </evaluator>
+            <evaluator id="86">
+                <type>path</type>
+                <decision>allow</decision>
+            </evaluator>
+            <evaluator id="87">
+                <type>value</type>
+                <decision>allow</decision>
+            </evaluator>
+            <evaluator id="88">
+                <type>const</type>
+                <decision>allow</decision>
+            </evaluator>
+            <evaluator id="89">
+                <type>script</type>
+                <decision>deny</decision>
+                <script id="90">
+                    <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
+                    <decision>allow</decision>
+                    <typeChecking>true</typeChecking>
+                    <permissionProfile>script-safe</permissionProfile>
+                </script>
+            </evaluator>
+        </expressionProfile>
+        <permissionProfile id="91">
+            <identifier>script-safe</identifier>
+            <decision>deny</decision>
+            <package id="92">
+                <name>com.evolveum.midpoint.xml.ns._public.common.common_3</name>
+                <description>MidPoint common schema - generated bean classes</description>
+                <decision>allow</decision>
+            </package>
+            <package id="93">
+                <name>com.evolveum.prism.xml.ns._public.types_3</name>
+                <description>Prism schema - bean classes</description>
+                <decision>allow</decision>
+            </package>
+            <class id="94">
+                <name>java.lang.Integer</name>
+                <decision>allow</decision>
+            </class>
+            <class id="95">
+                <name>java.lang.Object</name>
+                <description>Basic Java operations.</description>
+                <decision>deny</decision>
+                <method id="113">
+                    <name>equals</name>
+                    <decision>allow</decision>
+                </method>
+                <method id="114">
+                    <name>hashCode</name>
+                    <decision>allow</decision>
+                </method>
+            </class>
+            <class id="96">
+                <name>java.lang.String</name>
+                <description>String operations are generally safe. But Groovy is adding execute() method which is very dangerous.</description>
+                <decision>allow</decision>
+                <method id="115">
+                    <name>execute</name>
+                    <decision>deny</decision>
+                </method>
+            </class>
+            <class id="97">
+                <name>java.lang.CharSequence</name>
+                <decision>allow</decision>
+            </class>
+            <class id="98">
+                <name>java.lang.Enum</name>
+                <decision>allow</decision>
+            </class>
+            <class id="99">
+                <name>java.util.List</name>
+                <description>List operations are generally safe. But Groovy is adding execute() method which is very dangerous.</description>
+                <decision>allow</decision>
+                <method id="116">
+                    <name>execute</name>
+                    <decision>deny</decision>
+                </method>
+            </class>
+            <class id="100">
+                <name>java.util.ArrayList</name>
+                <description>List operations are generally safe. But Groovy is adding execute() method which is very dangerous.</description>
+                <decision>allow</decision>
+                <method id="117">
+                    <name>execute</name>
+                    <decision>deny</decision>
+                </method>
+            </class>
+            <class id="101">
+                <name>java.util.Map</name>
+                <decision>allow</decision>
+            </class>
+            <class id="102">
+                <name>java.util.HashMap</name>
+                <decision>allow</decision>
+            </class>
+            <class id="103">
+                <name>java.util.Date</name>
+                <decision>allow</decision>
+            </class>
+            <class id="104">
+                <name>javax.xml.namespace.QName</name>
+                <decision>allow</decision>
+            </class>
+            <class id="105">
+                <name>javax.xml.datatype.XMLGregorianCalendar</name>
+                <decision>allow</decision>
+            </class>
+            <class id="106">
+                <name>java.lang.System</name>
+                <description>Just a few methods of System are safe enough.</description>
+                <decision>deny</decision>
+                <method id="118">
+                    <name>currentTimeMillis</name>
+                    <decision>allow</decision>
+                </method>
+            </class>
+            <class id="107">
+                <name>java.lang.IllegalStateException</name>
+                <description>Basic Java exception. Also used in test.</description>
+                <decision>allow</decision>
+            </class>
+            <class id="108">
+                <name>java.lang.IllegalArgumentException</name>
+                <description>Basic Java exception.</description>
+                <decision>allow</decision>
+            </class>
+            <class id="109">
+                <name>com.evolveum.midpoint.model.common.expression.functions.BasicExpressionFunctions</name>
+                <description>MidPoint basic functions library</description>
+                <decision>allow</decision>
+            </class>
+            <class id="110">
+                <name>com.evolveum.midpoint.model.common.expression.functions.LogExpressionFunctions</name>
+                <description>MidPoint logging functions library</description>
+                <decision>allow</decision>
+            </class>
+            <class id="111">
+                <name>com.evolveum.midpoint.report.impl.ReportFunctions</name>
+                <description>MidPoint report functions library</description>
+                <decision>allow</decision>
+            </class>
+            <class id="112">
+                <name>org.apache.commons.lang.StringUtils</name>
+                <description>Apache Commons: Strings</description>
+                <decision>allow</decision>
+            </class>
+        </permissionProfile>
+    </expressions>
+</systemConfiguration>
+
+</objects>

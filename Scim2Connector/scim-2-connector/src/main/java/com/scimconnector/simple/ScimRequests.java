@@ -36,7 +36,7 @@ public class ScimRequests {
                 .uri("/scim/v2/Users")
                 .header("Content-Type", "application/scim+json")
                 .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
-                .body(BodyInserters.fromObject(body))
+                .body(BodyInserters.fromValue(body))
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();

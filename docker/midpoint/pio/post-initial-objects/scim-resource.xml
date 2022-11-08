@@ -190,6 +190,7 @@
             <cap:schema/>
             <cap:testConnection/>
             <cap:create/>
+            <cap:delete/>
             <cap:script>
                 <cap:host>
                     <cap:type>connector</cap:type>

@@ -2,6 +2,7 @@ package com.scimconnector.simple;
 
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 public class ScimRequests {
 
@@ -29,7 +30,7 @@ public class ScimRequests {
                 .block();
     }
 
-    public static String postCreate(String name) {
+    public static String postCreateUser(String name) {
         String body = "{\"userName\":\"" + name + "\"}";
         return webClient.post()
                 .uri("/scim/v2/Users")
@@ -38,6 +39,16 @@ public class ScimRequests {
                 .body(BodyInserters.fromObject(body))
                 .retrieve()
                 .bodyToMono(String.class)
+                .block();
+    }
+
+    public static int deleteUser(String uid) {
+        return webClient.delete()
+                .uri("/scim/v2/Users/" + uid)
+                .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
+                .exchangeToMono(response -> {
+                    return Mono.just(response.statusCode().value());
+                })
                 .block();
     }
 

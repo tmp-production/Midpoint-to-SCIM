@@ -25,19 +25,18 @@ import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.Connector;
 import org.identityconnectors.framework.spi.ConnectorClass;
 import org.identityconnectors.framework.spi.operations.CreateOp;
+import org.identityconnectors.framework.spi.operations.DeleteOp;
 import org.identityconnectors.framework.spi.operations.SchemaOp;
 import org.identityconnectors.framework.spi.operations.TestOp;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.UUID;
 
 // com.scimconnector.simple.Scim2ConnectorConnector
 
 @ConnectorClass(displayNameKey = "scim2connector.connector.display", configurationClass = Scim2ConnectorConfiguration.class)
-public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, CreateOp {
+public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, CreateOp, DeleteOp {
 
     private static final Log LOG = Log.getLog(Scim2ConnectorConnector.class);
 
@@ -145,7 +144,7 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, Cre
         LOG.info("create::begin attributes {0}", createAttributes);
         String name = (String) createAttributes.toArray(new Attribute[0])[0].getValue().get(0);
         LOG.info("create::name: " + name);
-        String response = ScimRequests.postCreate(name);
+        String response = ScimRequests.postCreateUser(name);
 
         LOG.ok(response.
                 replace("{", "<(").
@@ -167,5 +166,15 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, Cre
 
         LOG.info("create::end");
         return uid;
+    }
+
+    @Override
+    public void delete(ObjectClass objectClass, Uid uid, OperationOptions operationOptions) {
+        LOG.info("delete::begin id: " + uid.getUidValue());
+
+        int code = ScimRequests.deleteUser(uid.getUidValue());
+
+        LOG.info("delete::response code: " + code);
+        LOG.info("delete::end");
     }
 }

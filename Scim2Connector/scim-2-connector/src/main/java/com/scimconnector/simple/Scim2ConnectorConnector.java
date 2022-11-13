@@ -24,21 +24,20 @@ import org.identityconnectors.framework.common.objects.*;
 import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.Connector;
 import org.identityconnectors.framework.spi.ConnectorClass;
-import org.identityconnectors.framework.spi.operations.CreateOp;
-import org.identityconnectors.framework.spi.operations.DeleteOp;
-import org.identityconnectors.framework.spi.operations.SchemaOp;
-import org.identityconnectors.framework.spi.operations.TestOp;
+import org.identityconnectors.framework.spi.operations.*;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 // com.scimconnector.simple.Scim2ConnectorConnector
 
 @ConnectorClass(displayNameKey = "scim2connector.connector.display", configurationClass = Scim2ConnectorConfiguration.class)
-public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, CreateOp, DeleteOp {
+public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, CreateOp, DeleteOp, UpdateOp {
 
-    private static final Log LOG = Log.getLog(Scim2ConnectorConnector.class);
+    public static final Log LOG = Log.getLog(Scim2ConnectorConnector.class);
 
     private Scim2ConnectorConfiguration configuration;
     private Scim2ConnectorConnection connection;
@@ -176,5 +175,28 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, Cre
 
         LOG.info("delete::response code: " + code);
         LOG.info("delete::end");
+    }
+
+
+    @Override
+    public Uid update(ObjectClass objectClass, Uid uid, Set<Attribute> set, OperationOptions operationOptions) {
+        LOG.info("update::update attributes {0}", set);
+
+        Map<String, String> toUpdate = new HashMap<>();
+        try {
+            for (Attribute attribute : set) {
+                toUpdate.put(attribute.getName(), (String) attribute.getValue().get(0));
+            }
+        } catch (ClassCastException | IllegalArgumentException | NullPointerException e) {
+            throw new RuntimeException("Error occured when parsing Set<Attribute>, probably unexpected format");
+        }
+
+        String response = ScimRequests.updateUser(uid.getUidValue(), toUpdate);
+
+        LOG.info("update::response:\n" + response.
+                replace("{", "<(").
+                replace("}", ")>"));
+        LOG.info("update::end");
+        return uid;
     }
 }

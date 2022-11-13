@@ -196,6 +196,7 @@
                     <cap:type>connector</cap:type>
                 </cap:host>
             </cap:script>
+            <cap:update/>
         </native>
     </capabilities>
 </resource>

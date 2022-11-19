@@ -1,3 +1,4 @@
 com\scimconnector\simple\Scim2ConnectorConnector.class
 com\scimconnector\simple\Scim2ConnectorConfiguration.class
+com\scimconnector\simple\ScimRequests.class
 com\scimconnector\simple\Scim2ConnectorConnection.class

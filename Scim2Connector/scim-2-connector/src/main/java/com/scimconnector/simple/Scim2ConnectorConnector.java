@@ -35,7 +35,7 @@ import java.util.Set;
 // com.scimconnector.simple.Scim2ConnectorConnector
 
 @ConnectorClass(displayNameKey = "scim2connector.connector.display", configurationClass = Scim2ConnectorConfiguration.class)
-public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, CreateOp, DeleteOp, UpdateOp {
+public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, CreateOp, DeleteOp, UpdateOp, SyncOp {
 
     public static final Log LOG = Log.getLog(Scim2ConnectorConnector.class);
 
@@ -198,5 +198,15 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, Cre
                 replace("}", ")>"));
         LOG.info("update::end");
         return uid;
+    }
+
+    @Override
+    public void sync(ObjectClass objectClass, SyncToken syncToken, SyncResultsHandler syncResultsHandler, OperationOptions operationOptions) {
+
+    }
+
+    @Override
+    public SyncToken getLatestSyncToken(ObjectClass objectClass) {
+        return null;
     }
 }

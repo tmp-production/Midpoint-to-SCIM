@@ -144,7 +144,9 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, Cre
 
     @Override
     public Uid create(final ObjectClass objectClass, final Set<Attribute> createAttributes, final OperationOptions options) {
+        LOG.info("create::object class {0}", objectClass);
         LOG.info("create::begin attributes {0}", createAttributes);
+        LOG.info("create::options {0}", options);
         String name = (String) createAttributes.toArray(new Attribute[0])[0].getValue().get(0);
         LOG.info("create::name: " + name);
         String response = ScimRequests.postCreateUser(name);
@@ -192,7 +194,7 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, Cre
                 toUpdate.put(attribute.getName(), (String) attribute.getValue().get(0));
             }
         } catch (ClassCastException | IllegalArgumentException | NullPointerException e) {
-            throw new RuntimeException("Error occured when parsing Set<Attribute>, probably unexpected format");
+            throw new RuntimeException("Error occurred when parsing Set<Attribute>, probably unexpected format");
         }
 
         String response = ScimRequests.updateUser(uid.getUidValue(), toUpdate);

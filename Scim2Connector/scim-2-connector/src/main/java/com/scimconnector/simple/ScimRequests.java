@@ -2,6 +2,7 @@ package com.scimconnector.simple;
 
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -35,24 +36,32 @@ public class ScimRequests {
 
     public static String postCreateUser(String name) {
         String body = "{\"userName\":\"" + name + "\"}";
-        return webClient.post()
-                .uri("/scim/v2/Users")
-                .header("Content-Type", "application/scim+json")
-                .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
-                .body(BodyInserters.fromValue(body))
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        try {
+            return webClient.post()
+                    .uri("/scim/v2/Users")
+                    .header("Content-Type", "application/scim+json")
+                    .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
+                    .body(BodyInserters.fromValue(body))
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+        }  catch (WebClientResponseException e) {
+        throw new RuntimeException("Response error, " + e.toString() + "\nbody:" + e.getResponseBodyAsString(), e);
+        }
     }
 
     public static int deleteUser(String uid) {
-        return webClient.delete()
-                .uri("/scim/v2/Users/" + uid)
-                .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
-                .exchangeToMono(response -> {
-                    return Mono.just(response.statusCode().value());
-                })
-                .block();
+        try {
+            return webClient.delete()
+                    .uri("/scim/v2/Users/" + uid)
+                    .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
+                    .exchangeToMono(response -> {
+                        return Mono.just(response.statusCode().value());
+                    })
+                    .block();
+        } catch (WebClientResponseException e) {
+            throw new RuntimeException("Response error, " + e.toString() + "\nbody:" + e.getResponseBodyAsString(), e);
+        }
     }
 
     // https://www.rfc-editor.org/rfc/rfc7644#section-3.5.2.3 - at the end
@@ -87,14 +96,20 @@ public class ScimRequests {
         Scim2ConnectorConnector.LOG.info("updateUser:: request body:\n" +
                 body.replace("{", "<(").replace("}", ")>"));
 
-        return webClient.patch()
-                .uri("/scim/v2/Users/" + uid)
-                .header("Content-Type", "application/scim+json")
-                .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
-                .body(BodyInserters.fromValue(body))
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        String res = null;
+        try {
+            res = webClient.patch()
+                    .uri("/scim/v2/Users/" + uid)
+                    .header("Content-Type", "application/scim+json")
+                    .header("Authorization", "Basic c2NpbS11c2VyOmNoYW5nZWl0")
+                    .body(BodyInserters.fromValue(body))
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            return res;
+        } catch (WebClientResponseException e) {
+            throw new RuntimeException("Response error, " + e.toString() + "\nbody:" + e.getResponseBodyAsString(), e);
+        }
     }
 
 }

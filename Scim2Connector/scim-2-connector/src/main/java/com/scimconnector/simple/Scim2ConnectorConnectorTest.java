@@ -15,11 +15,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import org.identityconnectors.common.logging.Log;
+import org.identityconnectors.framework.common.objects.*;
+import org.junit.jupiter.api.*;
+
+
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class Scim2ConnectorConnectorTest {
     private final static String HOST_NAME = "http://0.0.0.0:8081";
-
+    public static final Log LOG = Log.getLog(Scim2ConnectorConnectorTest.class);
+    private static final ObjectClass objectClass = new ObjectClass("User");
 
     private static Scim2ConnectorConnector connector = null;
+    private static Uid uid = null;
 
     @org.junit.jupiter.api.Test
     @BeforeAll
@@ -39,24 +51,50 @@ class Scim2ConnectorConnectorTest {
     }
 
     @org.junit.jupiter.api.Test
+    @Order(0)
     void test1() {
         connector.test();
     }
 
     @org.junit.jupiter.api.Test
+    @Order(1)
     void schema() {
+        Schema schema = connector.schema();
+        Assertions.assertNotNull(schema);
     }
 
     @org.junit.jupiter.api.Test
+    @Order(2)
     void create() {
+        Attribute a1 = AttributeBuilder.build("userName", "Unit Tester");
+        Set<Attribute> set = new HashSet<Attribute>();
+        set.add(a1);
+
+        Uid uid = connector.create(objectClass, set, null);
+        Assertions.assertNotNull(uid);
+
+        LOG.info("Test create::uid={0}", uid.getUidValue());
+        Scim2ConnectorConnectorTest.uid = uid;
     }
 
     @org.junit.jupiter.api.Test
+    @Order(4)
     void delete() {
+        Assertions.assertNotNull(connector);
+        Assertions.assertNotNull(uid);
+        connector.delete(objectClass, uid, null);
     }
 
     @org.junit.jupiter.api.Test
+    @Order(3)
     void update() {
+        Random r = new Random();
+        Attribute a1 = AttributeBuilder.build("userName", "Unit Updater" + r.nextInt());
+        Set<Attribute> set = new HashSet<Attribute>();
+        set.add(a1);
+        Uid res = connector.update(objectClass, uid, set, null);
+
+        Assertions.assertEquals(uid, res);
     }
 
     @org.junit.jupiter.api.Test

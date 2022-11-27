@@ -57,6 +57,10 @@ public class Scim2ConnectorConnector implements Connector, TestOp, SchemaOp, Cre
         LOG.ok("Connector initialized");
     }
 
+    public Scim2ConnectorConnection getConnection() {
+        return connection;
+    }
+
     @Override
     public void dispose() {
         configuration = null;

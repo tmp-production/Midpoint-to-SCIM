@@ -32,7 +32,6 @@ class Scim2ConnectorConnectorTest {
     private static Scim2ConnectorConnector connector = null;
     private static Uid uid = null;
 
-    @Test
     @BeforeAll
     static void init() {
         Scim2ConnectorConnector connector = new Scim2ConnectorConnector();
@@ -104,7 +103,6 @@ class Scim2ConnectorConnectorTest {
     void getLatestSyncToken() {
     }
 
-    @Test
     @AfterAll
     static void dispose() {
         Assertions.assertNotNull(connector);

@@ -1,9 +1,8 @@
-package com.scimconnector.simple;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.identityconnectors.framework.common.objects.ObjectClassInfo;
+import com.scimconnector.simple.Scim2ConnectorConfiguration;
+import com.scimconnector.simple.Scim2ConnectorConnector;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -33,7 +32,7 @@ class Scim2ConnectorConnectorTest {
     private static Scim2ConnectorConnector connector = null;
     private static Uid uid = null;
 
-    @org.junit.jupiter.api.Test
+    @Test
     @BeforeAll
     static void init() {
         Scim2ConnectorConnector connector = new Scim2ConnectorConnector();
@@ -50,20 +49,20 @@ class Scim2ConnectorConnectorTest {
         Scim2ConnectorConnectorTest.connector = connector;
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     @Order(0)
     void test1() {
         connector.test();
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     @Order(1)
     void schema() {
         Schema schema = connector.schema();
         Assertions.assertNotNull(schema);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     @Order(2)
     void create() {
         Attribute a1 = AttributeBuilder.build("userName", "Unit Tester");
@@ -77,7 +76,7 @@ class Scim2ConnectorConnectorTest {
         Scim2ConnectorConnectorTest.uid = uid;
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     @Order(4)
     void delete() {
         Assertions.assertNotNull(connector);
@@ -85,7 +84,7 @@ class Scim2ConnectorConnectorTest {
         connector.delete(objectClass, uid, null);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     @Order(3)
     void update() {
         Random r = new Random();
@@ -97,15 +96,15 @@ class Scim2ConnectorConnectorTest {
         Assertions.assertEquals(uid, res);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void sync() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getLatestSyncToken() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     @AfterAll
     static void dispose() {
         Assertions.assertNotNull(connector);
@@ -153,7 +152,7 @@ class Scim2ConnectorConnectorTest {
     /**
      * all necessary docker instances must be running to pass tests listed below
      */
-    @org.junit.jupiter.api.Test
+    @Test
     void e2eCreateTest() {
         WebClient webClient = WebClient.create("http://localhost:8080/");
 

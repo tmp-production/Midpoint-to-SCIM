@@ -7,8 +7,8 @@ pipeline {
     }
     stages {
         stage('Build') { 
-            steps {
-                sh 'mvn -B -DskipTests clean package' 
+           steps {
+		sh 'mvn -f Scim2Connector/scim-2-connector/pom.xml -B -DskipTests clean package -X -s settings.xml' 
             }
         }
     }
